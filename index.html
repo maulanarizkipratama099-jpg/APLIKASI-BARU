@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SITU - Sistem Tata Usaha Pro</title>
 
     <!-- CSS Libraries -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet"/>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
-    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.12/dist/sweetalert2.min.css" rel="stylesheet"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.12/dist/sweetalert2.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
     <style id="print-orientation">
@@ -72,6 +72,13 @@
             .surat-content { text-align: justify; line-height: 1.5; margin-bottom: 30px; }
             .ttd-kanan { width: 100%; display: flex; justify-content: flex-end; margin-top: 50px; page-break-inside: avoid; }
         }
+        
+        .table-responsive {
+            overflow-x: auto;
+        }
+        .table {
+            min-width: 600px;
+        }
     </style>
 </head>
 <body>
@@ -85,18 +92,18 @@
 
     <div id="print-area">
         <div class="kop-surat">
-            <img id="print-logo-kiri" src="" alt="Logo Kiri"/>
+            <img id="print-logo-kiri" src="" alt="Logo Kiri">
             <div class="kop-teks">
                 <h4 id="print-daerah">PEMERINTAH DAERAH</h4>
                 <h2 id="print-sekolah">NAMA SEKOLAH</h2>
                 <p id="print-alamat">Alamat Sekolah</p>
             </div>
-            <img id="print-logo-kanan" src="" alt="Logo Kanan"/>
+            <img id="print-logo-kanan" src="" alt="Logo Kanan">
         </div>
         
         <div style="display: flex; justify-content: flex-end; margin-bottom: 10px;">
             <div style="text-align: right;">
-                <img id="print-barcode" src="" style="height: 30px; max-width: 200px;" alt="Barcode"/>
+                <img id="print-barcode" src="" style="height: 30px; max-width: 200px;" alt="Barcode">
             </div>
         </div>
 
@@ -119,7 +126,7 @@
             <a class="nav-link" onclick="go('agenda', this)"><i class="fas fa-calendar-alt"></i> Agenda</a>
             <a class="nav-link" onclick="go('siswa', this)"><i class="fas fa-user-graduate"></i> Data Siswa</a>
             <a class="nav-link" onclick="go('guru', this)"><i class="fas fa-chalkboard-teacher"></i> Guru &amp; Tendik</a>
-            <hr class="text-secondary mx-3"/>
+            <hr class="text-secondary mx-3">
             <a class="nav-link text-info" onclick="openDatabase()"><i class="fas fa-database"></i> Database</a>
             <a class="nav-link text-warning" onclick="go('pengaturan', this)"><i class="fas fa-cog"></i> Pengaturan</a>
         </div>
@@ -170,7 +177,7 @@
                         <div class="accordion accordion-flush small" id="accGuide">
                             <div class="accordion-item">
                                 <h2 class="accordion-header"><button class="accordion-button collapsed fw-bold py-2 px-1" type="button" data-bs-toggle="collapse" data-bs-target="#g1">1. Arsip &amp; Cetak Surat</button></h2>
-                                <div id="g1" class="accordion-collapse collapse" data-bs-parent="#accGuide"><div class="accordion-body px-1 py-2 text-secondary"><b>Arsip Surat:</b> Catat surat masuk dan keluar. Lampirkan link Google Drive jika menyimpan scan surat di Cloud.<br/><b>Cetak Surat:</b> Buat SK, Surat Keterangan, atau Pengantar secara instan menggunakan form. Kop Resmi &amp; Barcode akan otomatis tercetak di kertas (format Portrait).</div></div>
+                                <div id="g1" class="accordion-collapse collapse" data-bs-parent="#accGuide"><div class="accordion-body px-1 py-2 text-secondary"><b>Arsip Surat:</b> Catat surat masuk dan keluar. Lampirkan link Google Drive jika menyimpan scan surat di Cloud.<br><b>Cetak Surat:</b> Buat SK, Surat Keterangan, atau Pengantar secara instan menggunakan form. Kop Resmi &amp; Barcode akan otomatis tercetak di kertas (format Portrait).</div></div>
                             </div>
                             <div class="accordion-item">
                                 <h2 class="accordion-header"><button class="accordion-button collapsed fw-bold py-2 px-1" type="button" data-bs-toggle="collapse" data-bs-target="#g2">2. Data Siswa &amp; Pegawai</button></h2>
@@ -195,21 +202,31 @@
             <h4 class="fw-bold mb-4">Manajemen Arsip Surat</h4>
             <div class="card-custom">
                 <ul class="nav nav-pills mb-4 flex-nowrap overflow-auto" style="white-space: nowrap;">
-                    <li class="nav-item"><a class="nav-link active" data-bs-toggle="pill" href="#tab-surat-masuk" onclick="loadData('masuk')">Surat Masuk</a></li>
-                    <li class="nav-item"><a class="nav-link" data-bs-toggle="pill" href="#tab-surat-keluar" onclick="loadData('keluar')">Surat Keluar</a></li>
+                    <li class="nav-item"><a class="nav-link active" data-bs-toggle="pill" href="#tab-surat-masuk">Surat Masuk</a></li>
+                    <li class="nav-item"><a class="nav-link" data-bs-toggle="pill" href="#tab-surat-keluar">Surat Keluar</a></li>
                     <li class="nav-item"><a class="nav-link" data-bs-toggle="pill" href="#tab-surat-tambah">Tambah Arsip</a></li>
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane fade show active" id="tab-surat-masuk">
                         <button class="btn btn-outline-dark btn-sm mb-3" onclick="doPrintTable('masuk', 'Laporan Arsip Surat Masuk')"><i class="fas fa-print"></i> Cetak Laporan</button>
                         <div class="table-responsive">
-                            <table class="table table-bordered table-sm small"><thead class="table-light"><tr><th>Tgl Input</th><th>No. Surat</th><th>Asal Instansi</th><th>Perihal</th><th>Tgl Terbit</th><th>Arsip Drive</th> </thead><tbody id="t-masuk"></tbody></table>
+                            <table class="table table-bordered table-sm small">
+                                <thead class="table-light">
+                                    <tr><th>Tgl Input</th><th>No. Surat</th><th>Asal Instansi</th><th>Perihal</th><th>Tgl Terbit</th><th>Arsip Drive</th></tr>
+                                </thead>
+                                <tbody id="t-masuk"></tbody>
+                            </table>
                         </div>
                     </div>
                     <div class="tab-pane fade" id="tab-surat-keluar">
                         <button class="btn btn-outline-dark btn-sm mb-3" onclick="doPrintTable('keluar', 'Laporan Arsip Surat Keluar')"><i class="fas fa-print"></i> Cetak Laporan</button>
                         <div class="table-responsive">
-                            <table class="table table-bordered table-sm small"><thead class="table-light"><tr><th>Tgl Input</th><th>No. Surat</th><th>Tujuan</th><th>Perihal</th><th>Tgl Kirim</th><th>Arsip Drive</th> </thead><tbody id="t-keluar"></tbody></table>
+                            <table class="table table-bordered table-sm small">
+                                <thead class="table-light">
+                                    <tr><th>Tgl Input</th><th>No. Surat</th><th>Tujuan</th><th>Perihal</th><th>Tgl Kirim</th><th>Arsip Drive</th></tr>
+                                </thead>
+                                <tbody id="t-keluar"></tbody>
+                            </table>
                         </div>
                     </div>
                     <div class="tab-pane fade" id="tab-surat-tambah">
@@ -217,22 +234,22 @@
                             <div class="col-md-6">
                                 <h6 class="fw-bold text-primary"><i class="fas fa-inbox"></i> Form Surat Masuk</h6>
                                 <form onsubmit="handle(event, 'masuk')" class="p-3 border rounded bg-light">
-                                    <input class="form-control form-control-sm mb-2" name="noSurat" placeholder="No. Surat" required/>
-                                    <input class="form-control form-control-sm mb-2" name="asalTujuan" placeholder="Asal Instansi" required/>
-                                    <input class="form-control form-control-sm mb-2" name="perihal" placeholder="Perihal" required/>
-                                    <input class="form-control form-control-sm mb-2" name="tanggal" required type="date"/>
-                                    <input class="form-control form-control-sm mb-3" name="linkDrive" placeholder="Link Google Drive Arsip (Opsional)"/>
+                                    <input class="form-control form-control-sm mb-2" name="noSurat" placeholder="No. Surat" required>
+                                    <input class="form-control form-control-sm mb-2" name="asalTujuan" placeholder="Asal Instansi" required>
+                                    <input class="form-control form-control-sm mb-2" name="perihal" placeholder="Perihal" required>
+                                    <input class="form-control form-control-sm mb-2" name="tanggal" required type="date">
+                                    <input class="form-control form-control-sm mb-3" name="linkDrive" placeholder="Link Google Drive Arsip (Opsional)">
                                     <button class="btn btn-primary btn-sm w-100" type="submit">Simpan Arsip Masuk</button>
                                 </form>
                             </div>
                             <div class="col-md-6">
                                 <h6 class="fw-bold text-success"><i class="fas fa-paper-plane"></i> Form Surat Keluar</h6>
                                 <form onsubmit="handle(event, 'keluar')" class="p-3 border rounded bg-light">
-                                    <input class="form-control form-control-sm mb-2" name="noSurat" placeholder="No. Surat" required/>
-                                    <input class="form-control form-control-sm mb-2" name="tujuan" placeholder="Tujuan Surat" required/>
-                                    <input class="form-control form-control-sm mb-2" name="perihal" placeholder="Perihal" required/>
-                                    <input class="form-control form-control-sm mb-2" name="tanggal" required type="date"/>
-                                    <input class="form-control form-control-sm mb-3" name="linkDrive" placeholder="Link Google Drive Arsip (Opsional)"/>
+                                    <input class="form-control form-control-sm mb-2" name="noSurat" placeholder="No. Surat" required>
+                                    <input class="form-control form-control-sm mb-2" name="tujuan" placeholder="Tujuan Surat" required>
+                                    <input class="form-control form-control-sm mb-2" name="perihal" placeholder="Perihal" required>
+                                    <input class="form-control form-control-sm mb-2" name="tanggal" required type="date">
+                                    <input class="form-control form-control-sm mb-3" name="linkDrive" placeholder="Link Google Drive Arsip (Opsional)">
                                     <button class="btn btn-success btn-sm w-100" type="submit">Simpan Arsip Keluar</button>
                                 </form>
                             </div>
@@ -255,9 +272,9 @@
                     <div class="tab-pane fade show active" id="tab-tpl-keluar">
                         <form onsubmit="printTemplate(event, 'keluar')">
                             <div class="row">
-                                <div class="col-md-6 mb-2"><label class="small fw-bold">Nomor Surat</label><input class="form-control form-control-sm" id="tpl_k_no" required/></div>
-                                <div class="col-md-6 mb-2"><label class="small fw-bold">Lampiran</label><input class="form-control form-control-sm" id="tpl_k_lamp" value="-"/></div>
-                                <div class="col-md-12 mb-3"><label class="small fw-bold">Perihal</label><input class="form-control form-control-sm" id="tpl_k_hal" required/></div>
+                                <div class="col-md-6 mb-2"><label class="small fw-bold">Nomor Surat</label><input class="form-control form-control-sm" id="tpl_k_no" required></div>
+                                <div class="col-md-6 mb-2"><label class="small fw-bold">Lampiran</label><input class="form-control form-control-sm" id="tpl_k_lamp" value="-"></div>
+                                <div class="col-md-12 mb-3"><label class="small fw-bold">Perihal</label><input class="form-control form-control-sm" id="tpl_k_hal" required></div>
                                 <div class="col-md-12 mb-3"><label class="small fw-bold">Tujuan / Yth.</label><textarea class="form-control form-control-sm" id="tpl_k_tujuan" rows="2" placeholder="Bapak/Ibu..." required></textarea></div>
                                 <div class="col-md-12 mb-3"><label class="small fw-bold">Isi Surat</label><textarea class="form-control form-control-sm" id="tpl_k_isi" rows="5" placeholder="Dengan hormat,..." required></textarea></div>
                                 <div class="col-12"><button class="btn btn-dark w-100" type="submit"><i class="fas fa-print"></i> Cetak Surat Keluar</button></div>
@@ -267,9 +284,9 @@
                     <div class="tab-pane fade" id="tab-tpl-keterangan">
                         <form onsubmit="printTemplate(event, 'keterangan')">
                             <div class="row">
-                                <div class="col-md-12 mb-2"><label class="small fw-bold">Nomor Surat</label><input class="form-control form-control-sm" id="tpl_ket_no" required/></div>
-                                <div class="col-md-6 mb-2"><label class="small fw-bold">Nama Pihak Diterangkan</label><input class="form-control form-control-sm" id="tpl_ket_nama" required/></div>
-                                <div class="col-md-6 mb-2"><label class="small fw-bold">Tempat, Tgl Lahir / NISN</label><input class="form-control form-control-sm" id="tpl_ket_identitas" required/></div>
+                                <div class="col-md-12 mb-2"><label class="small fw-bold">Nomor Surat</label><input class="form-control form-control-sm" id="tpl_ket_no" required></div>
+                                <div class="col-md-6 mb-2"><label class="small fw-bold">Nama Pihak Diterangkan</label><input class="form-control form-control-sm" id="tpl_ket_nama" required></div>
+                                <div class="col-md-6 mb-2"><label class="small fw-bold">Tempat, Tgl Lahir / NISN</label><input class="form-control form-control-sm" id="tpl_ket_identitas" required></div>
                                 <div class="col-md-12 mb-3"><label class="small fw-bold">Menerangkan Bahwa (Isi Keterangan)</label><textarea class="form-control form-control-sm" id="tpl_ket_isi" rows="4" placeholder="Adalah benar siswa di..." required></textarea></div>
                                 <div class="col-12"><button class="btn btn-dark w-100" type="submit"><i class="fas fa-print"></i> Cetak Surat Keterangan</button></div>
                             </div>
@@ -278,8 +295,8 @@
                     <div class="tab-pane fade" id="tab-tpl-sk">
                         <form onsubmit="printTemplate(event, 'sk')">
                             <div class="row">
-                                <div class="col-md-12 mb-2"><label class="small fw-bold">Nomor SK</label><input class="form-control form-control-sm" id="tpl_sk_no" required/></div>
-                                <div class="col-md-12 mb-3"><label class="small fw-bold">TENTANG</label><input class="form-control form-control-sm" id="tpl_sk_tentang" placeholder="PENGANGKATAN BENDAHARA BOS..." required/></div>
+                                <div class="col-md-12 mb-2"><label class="small fw-bold">Nomor SK</label><input class="form-control form-control-sm" id="tpl_sk_no" required></div>
+                                <div class="col-md-12 mb-3"><label class="small fw-bold">TENTANG</label><input class="form-control form-control-sm" id="tpl_sk_tentang" placeholder="PENGANGKATAN BENDAHARA BOS..." required></div>
                                 <div class="col-md-12 mb-2"><label class="small fw-bold">Menimbang (Pisahkan dengan Enter)</label><textarea class="form-control form-control-sm" id="tpl_sk_timbang" rows="3" required>a. Bahwa untuk kelancaran...&#10;b. Bahwa yang namanya...</textarea></div>
                                 <div class="col-md-12 mb-2"><label class="small fw-bold">Mengingat (Pisahkan dengan Enter)</label><textarea class="form-control form-control-sm" id="tpl_sk_ingat" rows="3" required>1. Undang-Undang No. 20 Tahun 2003&#10;2. Peraturan Pemerintah...</textarea></div>
                                 <div class="col-md-12 mb-3"><label class="small fw-bold">MEMUTUSKAN / Menetapkan (Pisahkan dengan Enter)</label><textarea class="form-control form-control-sm" id="tpl_sk_tetap" rows="4" required>PERTAMA : Mengangkat Saudara...&#10;KEDUA : Surat Keputusan ini berlaku sejak...</textarea></div>
@@ -297,22 +314,27 @@
             <h4 class="fw-bold mb-4">Buku Tamu / Pengunjung</h4>
             <div class="card-custom">
                 <ul class="nav nav-pills mb-4 flex-nowrap overflow-auto" style="white-space: nowrap;">
-                    <li class="nav-item"><a class="nav-link active" data-bs-toggle="pill" href="#tab-tamu-data" onclick="loadData('tamu')">Lihat Data</a></li>
+                    <li class="nav-item"><a class="nav-link active" data-bs-toggle="pill" href="#tab-tamu-data">Lihat Data</a></li>
                     <li class="nav-item"><a class="nav-link" data-bs-toggle="pill" href="#tab-tamu-add">Tambah Tamu</a></li>
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane fade show active" id="tab-tamu-data">
                         <button class="btn btn-outline-dark btn-sm mb-3" onclick="doPrintTable('tamu', 'Laporan Rekapitulasi Buku Tamu')"><i class="fas fa-print"></i> Cetak Laporan</button>
                         <div class="table-responsive">
-                            <table class="table table-bordered table-sm small"><thead class="table-light"><tr><th>Waktu</th><th>Nama</th><th>Instansi</th><th>Keperluan</th><th>No. HP</th> </thead><tbody id="t-tamu"></tbody></table>
+                            <table class="table table-bordered table-sm small">
+                                <thead class="table-light">
+                                    <tr><th>Waktu</th><th>Nama</th><th>Instansi</th><th>Keperluan</th><th>No. HP</th></tr>
+                                </thead>
+                                <tbody id="t-tamu"></tbody>
+                            </table>
                         </div>
                     </div>
                     <div class="tab-pane fade" id="tab-tamu-add">
                         <form onsubmit="handle(event, 'tamu')" class="row">
-                            <div class="col-md-6 mb-2"><input class="form-control" name="nama" placeholder="Nama Lengkap" required/></div>
-                            <div class="col-md-6 mb-2"><input class="form-control" name="instansi" placeholder="Instansi/Alamat" required/></div>
-                            <div class="col-md-8 mb-2"><input class="form-control" name="keperluan" placeholder="Keperluan" required/></div>
-                            <div class="col-md-4 mb-3"><input class="form-control" name="noHp" placeholder="No. WhatsApp" required/></div>
+                            <div class="col-md-6 mb-2"><input class="form-control" name="nama" placeholder="Nama Lengkap" required></div>
+                            <div class="col-md-6 mb-2"><input class="form-control" name="instansi" placeholder="Instansi/Alamat" required></div>
+                            <div class="col-md-8 mb-2"><input class="form-control" name="keperluan" placeholder="Keperluan" required></div>
+                            <div class="col-md-4 mb-3"><input class="form-control" name="noHp" placeholder="No. WhatsApp" required></div>
                             <div class="col-12"><button class="btn btn-primary" type="submit">Simpan Data Tamu</button></div>
                         </form>
                     </div>
@@ -325,22 +347,27 @@
             <h4 class="fw-bold mb-4">Agenda Kegiatan</h4>
             <div class="card-custom">
                 <ul class="nav nav-pills mb-4 flex-nowrap overflow-auto" style="white-space: nowrap;">
-                    <li class="nav-item"><a class="nav-link active" data-bs-toggle="pill" href="#tab-agenda-data" onclick="loadData('agenda')">Lihat Agenda</a></li>
+                    <li class="nav-item"><a class="nav-link active" data-bs-toggle="pill" href="#tab-agenda-data">Lihat Agenda</a></li>
                     <li class="nav-item"><a class="nav-link" data-bs-toggle="pill" href="#tab-agenda-add">Tambah Agenda</a></li>
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane fade show active" id="tab-agenda-data">
                         <button class="btn btn-outline-dark btn-sm mb-3" onclick="doPrintTable('agenda', 'Laporan Agenda Kegiatan Sekolah')"><i class="fas fa-print"></i> Cetak Laporan</button>
                         <div class="table-responsive">
-                            <table class="table table-bordered table-sm small"><thead class="table-light"><tr><th>Input</th><th>Nama Kegiatan</th><th>Lokasi</th><th>Tanggal</th><th>Jam</th> </thead><tbody id="t-agenda"></tbody></table>
+                            <table class="table table-bordered table-sm small">
+                                <thead class="table-light">
+                                    <tr><th>Input</th><th>Nama Kegiatan</th><th>Lokasi</th><th>Tanggal</th><th>Jam</th></tr>
+                                </thead>
+                                <tbody id="t-agenda"></tbody>
+                            </table>
                         </div>
                     </div>
                     <div class="tab-pane fade" id="tab-agenda-add">
                         <form onsubmit="handle(event, 'agenda')" class="row">
-                            <div class="col-md-6 mb-2"><input class="form-control" name="kegiatan" placeholder="Nama Kegiatan" required/></div>
-                            <div class="col-md-6 mb-2"><input class="form-control" name="lokasi" placeholder="Tempat/Lokasi" required/></div>
-                            <div class="col-md-6 mb-2"><input class="form-control" name="tanggal" type="date" required/></div>
-                            <div class="col-md-6 mb-3"><input class="form-control" name="jam" type="time" required/></div>
+                            <div class="col-md-6 mb-2"><input class="form-control" name="kegiatan" placeholder="Nama Kegiatan" required></div>
+                            <div class="col-md-6 mb-2"><input class="form-control" name="lokasi" placeholder="Tempat/Lokasi" required></div>
+                            <div class="col-md-6 mb-2"><input class="form-control" name="tanggal" type="date" required></div>
+                            <div class="col-md-6 mb-3"><input class="form-control" name="jam" type="time" required></div>
                             <div class="col-12"><button class="btn btn-primary" type="submit">Simpan Agenda</button></div>
                         </form>
                     </div>
@@ -353,7 +380,7 @@
             <h4 class="fw-bold mb-4">Manajemen Data Siswa</h4>
             <div class="card-custom">
                 <ul class="nav nav-pills mb-4 flex-nowrap overflow-auto" style="white-space: nowrap;">
-                    <li class="nav-item"><a class="nav-link active" data-bs-toggle="pill" href="#tab-siswa-data" onclick="loadData('siswa')">Data Siswa</a></li>
+                    <li class="nav-item"><a class="nav-link active" data-bs-toggle="pill" href="#tab-siswa-data">Data Siswa</a></li>
                     <li class="nav-item"><a class="nav-link" data-bs-toggle="pill" href="#tab-siswa-add">Input Manual</a></li>
                     <li class="nav-item"><a class="nav-link" data-bs-toggle="pill" href="#tab-siswa-excel">Upload Excel</a></li>
                     <li class="nav-item"><a class="nav-link" data-bs-toggle="pill" href="#tab-siswa-print">Cetak Filter</a></li>
@@ -361,20 +388,25 @@
                 <div class="tab-content">
                     <div class="tab-pane fade show active" id="tab-siswa-data">
                         <div class="table-responsive">
-                            <table class="table table-bordered table-sm small text-nowrap"><thead class="table-light"><tr><th>Input</th><th>NISN</th><th>Nama Siswa</th><th>L/P</th><th>Tempat Lahir</th><th>Tgl Lahir</th><th>Kelas</th><th>Nama Ayah</th><th>Nama Ibu</th><th>Alamat</th> </thead><tbody id="t-siswa"></tbody></table>
+                            <table class="table table-bordered table-sm small text-nowrap">
+                                <thead class="table-light">
+                                    <tr><th>Input</th><th>NISN</th><th>Nama Siswa</th><th>L/P</th><th>Tempat Lahir</th><th>Tgl Lahir</th><th>Kelas</th><th>Nama Ayah</th><th>Nama Ibu</th><th>Alamat</th> </>
+                                </thead>
+                                <tbody id="t-siswa"></tbody>
+                             </table>
                         </div>
                     </div>
                     <div class="tab-pane fade" id="tab-siswa-add">
                         <form onsubmit="handle(event, 'siswa')" class="row">
-                            <div class="col-md-3 mb-2"><input class="form-control" name="nisn" placeholder="NISN" required/></div>
-                            <div class="col-md-4 mb-2"><input class="form-control" name="nama" placeholder="Nama Lengkap Siswa" required/></div>
+                            <div class="col-md-3 mb-2"><input class="form-control" name="nisn" placeholder="NISN" required></div>
+                            <div class="col-md-4 mb-2"><input class="form-control" name="nama" placeholder="Nama Lengkap Siswa" required></div>
                             <div class="col-md-2 mb-2"><select class="form-select" name="jk" required><option value="">L/P</option><option value="L">Laki-Laki</option><option value="P">Perempuan</option></select></div>
-                            <div class="col-md-3 mb-2"><input class="form-control" name="kelas" placeholder="Kelas (Cth: 7A)" required/></div>
-                            <div class="col-md-4 mb-2"><input class="form-control" name="tempatLahir" placeholder="Tempat Lahir" required/></div>
-                            <div class="col-md-4 mb-2"><input class="form-control" name="tglLahir" type="date" required/></div>
-                            <div class="col-md-4 mb-2"><input class="form-control" name="alamat" placeholder="Alamat" required/></div>
-                            <div class="col-md-6 mb-3"><input class="form-control" name="namaAyah" placeholder="Nama Ayah" required/></div>
-                            <div class="col-md-6 mb-3"><input class="form-control" name="namaIbu" placeholder="Nama Ibu" required/></div>
+                            <div class="col-md-3 mb-2"><input class="form-control" name="kelas" placeholder="Kelas (Cth: 7A)" required></div>
+                            <div class="col-md-4 mb-2"><input class="form-control" name="tempatLahir" placeholder="Tempat Lahir" required></div>
+                            <div class="col-md-4 mb-2"><input class="form-control" name="tglLahir" type="date" required></div>
+                            <div class="col-md-4 mb-2"><input class="form-control" name="alamat" placeholder="Alamat" required></div>
+                            <div class="col-md-6 mb-3"><input class="form-control" name="namaAyah" placeholder="Nama Ayah" required></div>
+                            <div class="col-md-6 mb-3"><input class="form-control" name="namaIbu" placeholder="Nama Ibu" required></div>
                             <div class="col-12"><button class="btn btn-primary" type="submit">Simpan Data Siswa</button></div>
                         </form>
                     </div>
@@ -383,13 +415,13 @@
                         <button class="btn btn-success btn-sm mb-4" onclick="downloadTemplate('siswa')"><i class="fas fa-download"></i> Download Template Siswa</button>
                         <div class="border p-4 rounded text-center bg-light">
                             <h6>Pilih file excel (.xlsx) yang sudah diisi:</h6>
-                            <input type="file" id="fileSiswa" class="form-control mb-3" accept=".xlsx, .xls"/>
+                            <input type="file" id="fileSiswa" class="form-control mb-3" accept=".xlsx, .xls">
                             <button class="btn btn-primary" onclick="uploadExcel('siswa')"><i class="fas fa-upload"></i> Mulai Upload Massal</button>
                         </div>
                     </div>
                     <div class="tab-pane fade" id="tab-siswa-print">
                         <div class="row">
-                            <div class="col-md-5 mb-2"><input type="text" id="filter-kelas" class="form-control" placeholder="Filter Kelas (Contoh: 7A / Semua)"/></div>
+                            <div class="col-md-5 mb-2"><input type="text" id="filter-kelas" class="form-control" placeholder="Filter Kelas (Contoh: 7A / Semua)"></div>
                             <div class="col-md-5 mb-3">
                                 <select id="filter-jk" class="form-select">
                                     <option value="Semua">Semua Jenis Kelamin</option><option value="L">Hanya Laki-laki (L)</option><option value="P">Hanya Perempuan (P)</option>
@@ -407,7 +439,7 @@
             <h4 class="fw-bold mb-4">Manajemen Guru &amp; Tendik</h4>
             <div class="card-custom">
                 <ul class="nav nav-pills mb-4 flex-nowrap overflow-auto" style="white-space: nowrap;">
-                    <li class="nav-item"><a class="nav-link active" data-bs-toggle="pill" href="#tab-guru-data" onclick="loadData('guru')">Data Pegawai</a></li>
+                    <li class="nav-item"><a class="nav-link active" data-bs-toggle="pill" href="#tab-guru-data">Data Pegawai</a></li>
                     <li class="nav-item"><a class="nav-link" data-bs-toggle="pill" href="#tab-guru-add">Input Manual</a></li>
                     <li class="nav-item"><a class="nav-link" data-bs-toggle="pill" href="#tab-guru-excel">Upload Excel</a></li>
                     <li class="nav-item"><a class="nav-link" data-bs-toggle="pill" href="#tab-guru-print">Cetak Filter</a></li>
@@ -415,22 +447,26 @@
                 <div class="tab-content">
                     <div class="tab-pane fade show active" id="tab-guru-data">
                         <div class="table-responsive">
-                            <table class="table table-bordered table-sm small text-nowrap"><thead class="table-light"><tr><th>Input</th><th>NIP/NUPTK</th><th>Nama</th><th>Kategori</th><th>Jabatan</th><th>Status</th><th>TMT Bertugas</th><th>No. SK</th> </thead><tbody id="t-guru"></tbody> </>
+                            <table class="table table-bordered table-sm small text-nowrap">
+                                <thead class="table-light">
+                                    <tr><th>Input</th><th>NIP/NUPTK</th><th>Nama</th><th>Kategori</th><th>Jabatan</th><th>Status</th><th>TMT Bertugas</th><th>No. SK</th> </thead>
+                                <tbody id="t-guru"></tbody>
+                             </table>
                         </div>
                     </div>
                     <div class="tab-pane fade" id="tab-guru-add">
                         <form onsubmit="handle(event, 'guru')" class="row">
-                            <div class="col-md-3 mb-2"><input class="form-control" name="nip" placeholder="NIP/NUPTK" required/></div>
-                            <div class="col-md-4 mb-2"><input class="form-control" name="nama" placeholder="Nama Lengkap" required/></div>
+                            <div class="col-md-3 mb-2"><input class="form-control" name="nip" placeholder="NIP/NUPTK" required></div>
+                            <div class="col-md-4 mb-2"><input class="form-control" name="nama" placeholder="Nama Lengkap" required></div>
                             <div class="col-md-5 mb-2">
                                 <select class="form-select" name="kategori" required><option value="">Kategori</option><option value="Guru">Tenaga Pendidik</option><option value="Tendik">Tenaga Kependidikan</option></select>
                             </div>
-                            <div class="col-md-4 mb-2"><input class="form-control" name="jabatan" placeholder="Jabatan (Cth: Wali Kelas)" required/></div>
+                            <div class="col-md-4 mb-2"><input class="form-control" name="jabatan" placeholder="Jabatan (Cth: Wali Kelas)" required></div>
                             <div class="col-md-4 mb-2">
                                 <select class="form-select" name="status" required><option value="">Status</option><option value="PNS">PNS</option><option value="PPPK">PPPK</option><option value="Honorer">Honorer</option></select>
                             </div>
-                            <div class="col-md-4 mb-2"><input class="form-control" name="tmt" type="date" required/></div>
-                            <div class="col-md-12 mb-3"><input class="form-control" name="noSk" placeholder="Nomor SK Pengangkatan" required/></div>
+                            <div class="col-md-4 mb-2"><input class="form-control" name="tmt" type="date" required></div>
+                            <div class="col-md-12 mb-3"><input class="form-control" name="noSk" placeholder="Nomor SK Pengangkatan" required></div>
                             <div class="col-12"><button class="btn btn-warning text-white" type="submit">Simpan Data Pegawai</button></div>
                         </form>
                     </div>
@@ -439,7 +475,7 @@
                         <button class="btn btn-success btn-sm mb-4" onclick="downloadTemplate('guru')"><i class="fas fa-download"></i> Download Template Guru</button>
                         <div class="border p-4 rounded text-center bg-light">
                             <h6>Pilih file excel (.xlsx) yang sudah diisi:</h6>
-                            <input type="file" id="fileGuru" class="form-control mb-3" accept=".xlsx, .xls"/>
+                            <input type="file" id="fileGuru" class="form-control mb-3" accept=".xlsx, .xls">
                             <button class="btn btn-warning text-white" onclick="uploadExcel('guru')"><i class="fas fa-upload"></i> Mulai Upload Massal</button>
                         </div>
                     </div>
@@ -471,17 +507,17 @@
                     <div class="row">
                         <div class="col-md-12 mb-4">
                             <label class="small fw-bold text-success">Link Database (URL File Google Spreadsheet)</label>
-                            <input class="form-control border-success" id="set-linkspreadsheet" placeholder="https://docs.google.com/spreadsheets/d/..."/>
+                            <input class="form-control border-success" id="set-linkspreadsheet" placeholder="https://docs.google.com/spreadsheets/d/...">
                         </div>
-                        <div class="col-md-6 mb-3"><label class="small fw-bold text-primary">Pemerintah Daerah / Kemenag</label><input class="form-control border-primary" id="set-daerah" placeholder="Pemerintah Kabupaten Kerinci"/></div>
-                        <div class="col-md-6 mb-3"><label class="small fw-bold text-primary">Nama Instansi / Sekolah</label><input class="form-control border-primary" id="set-sekolah" placeholder="SMP Negeri 3 Kerinci"/></div>
-                        <div class="col-md-12 mb-3"><label class="small fw-bold">Alamat Lengkap</label><input class="form-control" id="set-alamat" placeholder="Jl. Raya ... No ..."/></div>
-                        <div class="col-md-6 mb-3"><label class="small fw-bold">Nama Kepala Sekolah</label><input class="form-control" id="set-namakepsek" placeholder="Nama Lengkap beserta gelar"/></div>
-                        <div class="col-md-6 mb-3"><label class="small fw-bold">NIP Kepala Sekolah</label><input class="form-control" id="set-nipkepsek" placeholder="NIP / -"/></div>
-                        <div class="col-md-6 mb-3"><label class="small fw-bold">Nama Kepala TU</label><input class="form-control" id="set-namatu" placeholder="Nama Lengkap beserta gelar"/></div>
-                        <div class="col-md-6 mb-3"><label class="small fw-bold">NIP Kepala TU</label><input class="form-control" id="set-niptu" placeholder="NIP / -"/></div>
-                        <div class="col-md-6 mb-3"><label class="small fw-bold">Link Logo Kiri (Daerah)</label><input class="form-control" id="set-logokiri" placeholder="https://..."/></div>
-                        <div class="col-md-6 mb-4"><label class="small fw-bold">Link Logo Kanan (Sekolah)</label><input class="form-control" id="set-logokanan" placeholder="https://..."/></div>
+                        <div class="col-md-6 mb-3"><label class="small fw-bold text-primary">Pemerintah Daerah / Kemenag</label><input class="form-control border-primary" id="set-daerah" placeholder="Pemerintah Kabupaten Kerinci"></div>
+                        <div class="col-md-6 mb-3"><label class="small fw-bold text-primary">Nama Instansi / Sekolah</label><input class="form-control border-primary" id="set-sekolah" placeholder="SMP Negeri 3 Kerinci"></div>
+                        <div class="col-md-12 mb-3"><label class="small fw-bold">Alamat Lengkap</label><input class="form-control" id="set-alamat" placeholder="Jl. Raya ... No ..."></div>
+                        <div class="col-md-6 mb-3"><label class="small fw-bold">Nama Kepala Sekolah</label><input class="form-control" id="set-namakepsek" placeholder="Nama Lengkap beserta gelar"></div>
+                        <div class="col-md-6 mb-3"><label class="small fw-bold">NIP Kepala Sekolah</label><input class="form-control" id="set-nipkepsek" placeholder="NIP / -"></div>
+                        <div class="col-md-6 mb-3"><label class="small fw-bold">Nama Kepala TU</label><input class="form-control" id="set-namatu" placeholder="Nama Lengkap beserta gelar"></div>
+                        <div class="col-md-6 mb-3"><label class="small fw-bold">NIP Kepala TU</label><input class="form-control" id="set-niptu" placeholder="NIP / -"></div>
+                        <div class="col-md-6 mb-3"><label class="small fw-bold">Link Logo Kiri (Daerah)</label><input class="form-control" id="set-logokiri" placeholder="https://..."></div>
+                        <div class="col-md-6 mb-4"><label class="small fw-bold">Link Logo Kanan (Sekolah)</label><input class="form-control" id="set-logokanan" placeholder="https://..."></div>
                         <div class="col-12"><button type="submit" class="btn btn-primary w-100 fw-bold" id="btn-save-settings"><i class="fas fa-save"></i> Simpan Pengaturan</button></div>
                     </div>
                 </form>
@@ -511,6 +547,16 @@
             
             loadSettingsFromDB();
             fetchDashboardStats();
+            
+            // Load data for active tabs
+            setTimeout(() => {
+                loadData('masuk');
+                loadData('keluar');
+                loadData('tamu');
+                loadData('agenda');
+                loadData('siswa');
+                loadData('guru');
+            }, 1000);
         });
 
         function openDatabase() {
@@ -697,7 +743,7 @@
             setPrintOrientation('landscape'); 
             
             const originalTable = document.getElementById('t-' + type);
-            if(!originalTable || originalTable.innerHTML.includes('Belum ada')) {
+            if(!originalTable || originalTable.innerHTML.includes('Belum ada') || originalTable.innerHTML === '') {
                 return Swal.fire('Kosong', 'Tidak ada data untuk dicetak.', 'warning');
             }
             injectPrintHeader(judul);
@@ -705,7 +751,7 @@
             const tableEl = originalTable.closest('table');
             const thead = tableEl ? tableEl.querySelector('thead').outerHTML : '';
             let html = "<div class='print-title'>" + judul + "</div>";
-            html += "<table class='table-print'>" + thead + "<tbody>" + originalTable.innerHTML + "</tbody> </table>";
+            html += "<table class='table-print'>" + thead + "<tbody>" + originalTable.innerHTML + "</tbody></table>";
             
             html += `<div class='signature-area'>
                 <div class='sig-box'><div>Mengetahui,<br/>Kepala Sekolah</div><p class='sig-name'>${localStorage.getItem('situ_namakepsek') || '-'}</p><div>NIP. ${localStorage.getItem('situ_nipkepsek') || '-'}</div></div>
@@ -816,8 +862,8 @@
                 const no = document.getElementById('tpl_k_no') ? document.getElementById('tpl_k_no').value : '-';
                 const lamp = document.getElementById('tpl_k_lamp') ? document.getElementById('tpl_k_lamp').value : '-';
                 const hal = document.getElementById('tpl_k_hal') ? document.getElementById('tpl_k_hal').value : '-';
-                const tujuan = document.getElementById('tpl_k_tujuan') ? document.getElementById('tpl_k_tujuan').value.replace(/\n/g, "<br/>") : '';
-                const isi = document.getElementById('tpl_k_isi') ? document.getElementById('tpl_k_isi').value.replace(/\n/g, "<br/>") : '';
+                const tujuan = document.getElementById('tpl_k_tujuan') ? document.getElementById('tpl_k_tujuan').value.replace(/\n/g, "<br>") : '';
+                const isi = document.getElementById('tpl_k_isi') ? document.getElementById('tpl_k_isi').value.replace(/\n/g, "<br>") : '';
                 
                 html += `
                 <div style="display:flex; justify-content:space-between; font-size:12pt; margin-top:20px;">
@@ -838,7 +884,7 @@
                 const no = document.getElementById('tpl_ket_no') ? document.getElementById('tpl_ket_no').value : '';
                 const nama = document.getElementById('tpl_ket_nama') ? document.getElementById('tpl_ket_nama').value : '';
                 const identitas = document.getElementById('tpl_ket_identitas') ? document.getElementById('tpl_ket_identitas').value : '';
-                const isi = document.getElementById('tpl_ket_isi') ? document.getElementById('tpl_ket_isi').value.replace(/\n/g, "<br/>") : '';
+                const isi = document.getElementById('tpl_ket_isi') ? document.getElementById('tpl_ket_isi').value.replace(/\n/g, "<br>") : '';
                 
                 html += `
                 <div class='print-title' style="margin-bottom:0;">SURAT KETERANGAN</div>
@@ -859,10 +905,10 @@
             else if(type === 'sk') {
                 const no = document.getElementById('tpl_sk_no') ? document.getElementById('tpl_sk_no').value : '';
                 const tentang = document.getElementById('tpl_sk_tentang') ? document.getElementById('tpl_sk_tentang').value.toUpperCase() : '';
-                const timbang = document.getElementById('tpl_sk_timbang') ? document.getElementById('tpl_sk_timbang').value.replace(/\n/g, "<br/>") : '';
-                const ingat = document.getElementById('tpl_sk_ingat') ? document.getElementById('tpl_sk_ingat').value.replace(/\n/g, "<br/>") : '';
-                const tetap = document.getElementById('tpl_sk_tetap') ? document.getElementById('tpl_sk_tetap').value.replace(/\n/g, "<br/>") : '';
-                const lampiran = document.getElementById('tpl_sk_lampiran') ? document.getElementById('tpl_sk_lampiran').value.replace(/\n/g, "<br/>") : '';
+                const timbang = document.getElementById('tpl_sk_timbang') ? document.getElementById('tpl_sk_timbang').value.replace(/\n/g, "<br>") : '';
+                const ingat = document.getElementById('tpl_sk_ingat') ? document.getElementById('tpl_sk_ingat').value.replace(/\n/g, "<br>") : '';
+                const tetap = document.getElementById('tpl_sk_tetap') ? document.getElementById('tpl_sk_tetap').value.replace(/\n/g, "<br>") : '';
+                const lampiran = document.getElementById('tpl_sk_lampiran') ? document.getElementById('tpl_sk_lampiran').value.replace(/\n/g, "<br>") : '';
                 
                 html += `
                 <div style="text-align:center; font-weight:bold; font-size:12pt; line-height:1.5; margin-top:20px;">
@@ -871,12 +917,12 @@
                     KEPALA ${(localStorage.getItem('situ_sekolah') || 'SEKOLAH').toUpperCase()}
                 </div>
                 <table style="width:100%; margin-top:20px; font-size:11pt;">
-                    <tr><td style="width:100px; vertical-align:top;">Menimbang</td><td style="width:10px; vertical-align:top;">:</td><td style="text-align:justify;">${timbang}</td></tr>
-                    <tr><td style="vertical-align:top; padding-top:10px;">Mengingat</td><td style="vertical-align:top; padding-top:10px;">:</td><td style="text-align:justify; padding-top:10px;">${ingat}</td></tr>
+                    <tr><td style="width:100px; vertical-align:top;">Menimbang</td><td style="width:10px; vertical-align:top;">:</td><td style="text-align:justify;">${timbang}</td> </tr>
+                    <tr><td style="vertical-align:top; padding-top:10px;">Mengingat</td><td style="vertical-align:top; padding-top:10px;">:</td><td style="text-align:justify; padding-top:10px;">${ingat}</td> </tr>
                  </table>
                 <div style="text-align:center; font-weight:bold; font-size:12pt; margin:20px 0;">MEMUTUSKAN</div>
                 <table style="width:100%; font-size:11pt;">
-                     <tr><td style="width:100px; vertical-align:top;">Menetapkan</td><td style="width:10px; vertical-align:top;">:</td><td style="text-align:justify;">${tetap}</td></tr>
+                    <tr><td style="width:100px; vertical-align:top;">Menetapkan</td><td style="width:10px; vertical-align:top;">:</td><td style="text-align:justify;">${tetap}</td> </tr>
                  </table>
                 <div class="ttd-kanan">
                     <div class='sig-box'><div>Ditetapkan di: ${kab}<br/>Pada Tanggal: ${tgl}<br/>Kepala Sekolah</div><p class='sig-name'>${localStorage.getItem('situ_namakepsek') || '-'}</p><div>NIP. ${localStorage.getItem('situ_nipkepsek') || '-'}</div></div>
@@ -960,6 +1006,8 @@
                         completeHTML += rowHTML;
                     });
                     tbody.innerHTML = completeHTML;
+                } else {
+                    tbody.innerHTML = "<tr><td class='text-center text-danger' colspan='15'>Gagal memuat data: " + (res.error || 'Unknown error') + "</td></tr>";
                 }
             } catch (err) {
                 tbody.innerHTML = "<tr><td class='text-center text-danger' colspan='15'>Gagal terhubung. Pastikan API URL benar.</td></tr>";
